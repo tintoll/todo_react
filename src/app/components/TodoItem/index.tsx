@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import Block from '../Block';
 import CicleButton from '../Button/CircleButton';
 import CheckBox from '../CheckBox';
+import TodoInput from '../TodoInput';
 
 const Box = styled.div`
   display: flex;
@@ -44,7 +45,11 @@ export default function TodoItem({ todo }: { todo: ITodoItem }) {
       <div style={{ width: '100%', display: 'flex', alignContent: 'center' }}>
         <CheckBox checked={todo.completed} />
         <Block marginLeft="10px" />
-        <TodoContent checked={todo.completed}>{todo.content}</TodoContent>
+        {todo.editing ? (
+          <TodoInput />
+        ) : (
+          <TodoContent checked={todo.completed}>{todo.content}</TodoContent>
+        )}
       </div>
       <CicleButton
         className="delete-button"

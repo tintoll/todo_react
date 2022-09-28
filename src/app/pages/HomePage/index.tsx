@@ -33,7 +33,7 @@ export function HomePage() {
     {
       id: '1',
       completed: true,
-      editing: false,
+      editing: true,
       content: '할일 1',
     },
     {

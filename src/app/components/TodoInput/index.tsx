@@ -4,10 +4,9 @@ import styled from 'styled-components';
 const Box = styled.div<{ isEditing?: boolean }>`
   display: flex;
   align-items: center;
-  padding: ${props => (props.isEditing ? '0px 15px' : '15px 25px')};
+  padding: ${props => (props.isEditing ? '5px 0px' : '15px 25px')};
   width: 100%;
-  font-size: 1.1em;
-  border: 1px solid #eee;
+  border-bottom: 1px solid #eee;
 `;
 
 const Input = styled.input`

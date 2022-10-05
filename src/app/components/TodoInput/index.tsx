@@ -16,19 +16,19 @@ const Input = styled.input`
 `;
 
 export default function TodoInput({
-  setTodoList,
+  addTodo,
   isEditing,
   editContent,
   editTodo,
   editModeTodo,
 }: {
-  setTodoList?: (todo: ITodoItem) => void;
+  addTodo?: (content: string) => void;
   isEditing?: boolean;
   editContent?: string;
-  editTodo?: (content) => void;
+  editTodo?: (content: string) => void;
   editModeTodo?: () => void;
 }) {
-  const [content, setContent] = useState<string>('');
+  const [content, setContent] = useState<string>(editContent || '');
   return (
     <Box isEditing={isEditing}>
       <Input
@@ -46,13 +46,7 @@ export default function TodoInput({
           if (isEditing) {
             editTodo && editTodo(content);
           } else {
-            setTodoList &&
-              setTodoList({
-                id: '4',
-                completed: false,
-                editing: false,
-                content: content,
-              });
+            addTodo && addTodo(content);
             setContent('');
           }
         }}

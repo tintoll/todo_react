@@ -1,9 +1,9 @@
 interface ITodoItemContent {
-  content: String;
+  content: string;
 }
 
 interface ITodoItem extends ITodoItemContent {
-  id: String;
+  id: string;
   completed: boolean;
   editing: boolean;
 }

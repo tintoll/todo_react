@@ -4,6 +4,9 @@ import styled from 'styled-components';
 
 import TodoInput from 'app/components/TodoInput';
 import TodoItem from 'app/components/TodoItem';
+import { useDispatch, useSelector } from 'react-redux';
+import { TodoListSelector } from 'store/todo/selectors';
+import { useTodoSlice } from 'store/todo';
 
 const Wrapper = styled.div`
   width: 100%;
@@ -30,26 +33,13 @@ const Title = styled.h1`
 const TodoList = styled.div``;
 
 export function HomePage() {
-  const [todoList, setTodoList] = React.useState<ITodoItem[]>([
-    {
-      id: '1',
-      completed: true,
-      editing: true,
-      content: '할일 1',
-    },
-    {
-      id: '2',
-      completed: false,
-      editing: false,
-      content: '할일 2',
-    },
-    {
-      id: '3',
-      completed: false,
-      editing: false,
-      content: '할일 세번째',
-    },
-  ]);
+  const { TodoActions } = useTodoSlice();
+  const todoList = useSelector(TodoListSelector);
+  const dispatch = useDispatch();
+
+  const addTodo = (content: string) => {
+    dispatch(TodoActions.addTodo(content));
+  };
 
   return (
     <>
@@ -60,14 +50,26 @@ export function HomePage() {
       <Wrapper>
         <Box>
           <Title>할일</Title>
-          <TodoInput
-            setTodoList={todo => {
-              setTodoList([todo, ...todoList]);
-            }}
-          />
+          <TodoInput addTodo={addTodo} />
           <TodoList>
             {todoList.map(todo => (
-              <TodoItem todo={todo} />
+              <TodoItem
+                todo={todo}
+                checkTodo={() =>
+                  dispatch(TodoActions.checkTodo({ id: todo.id }))
+                }
+                editModeTodo={() =>
+                  dispatch(TodoActions.editModeTodo({ id: todo.id }))
+                }
+                editTodo={(content: string) =>
+                  dispatch(
+                    TodoActions.editTodo({ id: todo.id, content: content }),
+                  )
+                }
+                deleteTodo={() =>
+                  dispatch(TodoActions.deleteTodo({ id: todo.id }))
+                }
+              />
             ))}
           </TodoList>
         </Box>
